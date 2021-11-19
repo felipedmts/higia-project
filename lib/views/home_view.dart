@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:higia/views/tela_cadastro.dart';
+import 'package:higia/views/tela_login.dart';
 
 class HomeView extends StatelessWidget {
+  fazerSoma() {
+    int soma = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -15,7 +21,7 @@ class HomeView extends StatelessWidget {
             colors: [Color(0xff38eeff), Color(0x00246eb9)],
           ),
         ),
-        
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +49,7 @@ class HomeView extends StatelessWidget {
                 width: 250,
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => Get.to(() => TelaLogin()),
                   child: Text('Fazer Login'),
                   style: ElevatedButton.styleFrom(
                     shape: new RoundedRectangleBorder(
@@ -57,7 +63,7 @@ class HomeView extends StatelessWidget {
               width: 250,
               height: 40,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => Get.to(() => TelaCadastro()),
                 child: Text('Fazer Cadastro'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.green,

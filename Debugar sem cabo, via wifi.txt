@@ -1,0 +1,10 @@
+1-com o cabo de dados conectado rodar o comando:
+adb tcpip 5555,
+
+2-depois ainda com o cabo de dados conectado roda o comando:
+adb connect ip_do_celular_na_rede(a mesma do computador):5555
+
+depois disso o aparelho já deve esta conectado via wifi e pode desconectar ocabo de dados e ele já deve aparecer lá no vscode
+
+
+https://www.youtube.com/watch?v=fyPH_J8l7mQ&ab_channel=RodrigoRahman

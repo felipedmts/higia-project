@@ -27,7 +27,7 @@ class TelaLogin extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'images/logo.png',
+              'assets/images/logo.png',
               width: 200,
               height: 200,
             ),

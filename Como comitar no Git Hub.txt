@@ -1,0 +1,11 @@
+// linkar seu projeto com o seu repositório no github, pra isso você vai usar o comando: git remote add origin "link do repositório".
+
+
+
+1º - git checkout -b 'nome da branch' (cria uma branch a já ativa ela como padrão)
+
+2º - git add -A  (ou git add . que às vezes da erro)
+
+3º - git commit -m "breve descrição do que foi feito"
+
+4º - git push origin 'nome da branch'
