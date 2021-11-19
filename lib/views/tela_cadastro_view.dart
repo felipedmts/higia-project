@@ -156,6 +156,7 @@ class TelaCadastro extends StatelessWidget {
                       ),
                     ),
                   ),
+                  obscureText: true,
                 ),
               ),
               SizedBox(
@@ -178,6 +179,7 @@ class TelaCadastro extends StatelessWidget {
                       ),
                     ),
                   ),
+                  obscureText: true,
                 ),
               ),
               SizedBox(

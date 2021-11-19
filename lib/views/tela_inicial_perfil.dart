@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:higia/controllers/controller_usuario.dart';
 
 class TelaInicialPerfil extends StatelessWidget {
+  final controllerUsuario = Get.put(ControllerUsuario());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,133 +11,136 @@ class TelaInicialPerfil extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         color: Colors.white10,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                width: 400,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 25, top: 100),
-                    ),
-                    CircleAvatar(
-                      child: Icon(Icons.person),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Ariel Lopes",
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.indigo[300]),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            alignment: Alignment.topLeft,
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            "VER PERFIL",
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  width: 400,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 25, top: 100),
+                      ),
+                      CircleAvatar(
+                        child: Icon(Icons.person),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${controllerUsuario.usuarioLogado.nome}',
                             style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black54),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.indigo[300]),
                           ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              alignment: Alignment.topLeft,
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              "VER PERFIL",
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black54),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: <Widget>[
+                        Image.asset(
+                          'assets/images/logo.png',
+                          height: 200,
+                          width: 200,
                         ),
+                        //SizedBox(
+                        //  height: 40,
+                        // ),
                       ],
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: <Widget>[
-                      Image.asset(
-                        'images/logo.png',
-                        height: 200,
-                        width: 200,
-                      ),
-                      //SizedBox(
-                      //  height: 40,
-                      // ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  minhaEstruturaCard(Icons.copy, 'Vacinas'),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  minhaEstruturaCard(
-                      Icons.device_thermostat_outlined, 'Alergias'),
-                ],
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  minhaEstruturaCard(Icons.recent_actors_rounded, 'Genética'),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  minhaEstruturaCard(Icons.control_point, 'Doenças'),
-                ],
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  minhaEstruturaCard(
-                      Icons.quick_contacts_dialer_rounded, 'Contatos'),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  minhaEstruturaCard(
-                      Icons.family_restroom_outlined, 'Hist. Família'),
-                ],
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  minhaEstruturaCard(Icons.content_paste_sharp, 'Exames'),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  minhaEstruturaCard(Icons.qr_code_2_sharp, 'Hist. QR. Code'),
-                ],
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  minhaEstruturaCard(
-                      Icons.invert_colors_sharp, 'Med.Continuada'),
-                ],
-              ),
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    minhaEstruturaCard(Icons.copy, 'Vacinas'),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    minhaEstruturaCard(
+                        Icons.device_thermostat_outlined, 'Alergias'),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    minhaEstruturaCard(Icons.recent_actors_rounded, 'Genética'),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    minhaEstruturaCard(Icons.control_point, 'Doenças'),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    minhaEstruturaCard(
+                        Icons.quick_contacts_dialer_rounded, 'Contatos'),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    minhaEstruturaCard(
+                        Icons.family_restroom_outlined, 'Hist. Família'),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    minhaEstruturaCard(Icons.content_paste_sharp, 'Exames'),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    minhaEstruturaCard(Icons.qr_code_2_sharp, 'Hist. QR. Code'),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    minhaEstruturaCard(
+                        Icons.invert_colors_sharp, 'Med.Continuada'),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -156,14 +162,19 @@ class TelaInicialPerfil extends StatelessWidget {
           child: Row(
             children: [
               CircleAvatar(
-                child: Icon(icon),
+                child: Icon(
+                  icon,
+                ),
               ),
               SizedBox(
                 width: 5,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         title,
@@ -174,14 +185,21 @@ class TelaInicialPerfil extends StatelessWidget {
                       ),
                     ],
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Visualizar",
-                      style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black54),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Visualizar",
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black54),
+                      ),
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size(100, 20),
+                        alignment: Alignment.topLeft,
+                      ),
                     ),
                   ),
                 ],

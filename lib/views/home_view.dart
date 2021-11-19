@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:higia/views/tela_cadastro.dart';
+import 'package:higia/views/tela_cadastro_view.dart';
 import 'package:higia/views/tela_login.dart';
 
 class HomeView extends StatelessWidget {
-  fazerSoma() {
-    int soma = 0;
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -4,13 +4,13 @@ import 'package:higia/models/usuarioModel.dart';
 class RepositorioRegistrarUsuarios {
   final connect = myConfigHasuraConnect();
 
-  Future<UsuarioModel> buscarUsuario(String cpf, String senha) async {
+  Future<UsuarioModel> validarUsuario(UsuarioModel usuario) async {
     String myQuery = """
                         query MyQuery {
               usuarios(
                 where: {
-                  cpf: {_eq: "$cpf"}, 
-                  senha: {_eq: "$senha"}}) 
+                  email: {_eq: "${usuario.email}"}, 
+                  senha: {_eq: "${usuario.senha}"}}) 
               {
                 id_UUID
                 id_incremental
@@ -25,14 +25,13 @@ class RepositorioRegistrarUsuarios {
 
     // print('QUERY ENVIADA CONSULTAR USUÁRIOS: \n $myQuery');
 
-    var returnUserSearch = await myConfigHasuraConnect().query(myQuery);
+    var retornoValidarUsuario = await myConfigHasuraConnect().query(myQuery);
 
-    if (returnUserSearch['data']['usuarios'].toString() == '[]') {
+    if (retornoValidarUsuario['data']['usuarios'].toString() == '[]') {
       return UsuarioModel(idUuid: 'no');
     } else {
-      //  print(          'RETORNO DA CONSULTA USUÁRIO \n ${returnUserSearch['data']['private_usersPrecoBom']}');
-      //  checkIfUserIsLoggedInLocally(          returnUserSearch['data']['private_usersPrecoBom'][0]);
-      return UsuarioModel.fromJson(returnUserSearch['data']['usuarios'][0]);
+      return UsuarioModel.fromJson(
+          retornoValidarUsuario['data']['usuarios'][0]);
     }
   }
 
@@ -41,10 +40,10 @@ class RepositorioRegistrarUsuarios {
             mutation MyMutation {
               insert_usuarios(
                 objects: {
-                  nome: "${usuario.nome}}", 
-                  email: "${usuario.email}}", 
-                  cpf: "${usuario.cpf}}", 
-                  senha:"${usuario.senha}}", 
+                  nome: "${usuario.nome}", 
+                  email: "${usuario.email}", 
+                  cpf: "${usuario.cpf}", 
+                  senha:"${usuario.senha}", 
                 }) {
                 affected_rows
               }
@@ -91,33 +90,6 @@ class RepositorioRegistrarUsuarios {
     } else {
       print(
           'RETORNO DA CONSULTA USUÁRIO VERDADEIRO \n ${returnUserSearch['data']['private_usersPrecoBom']}');
-      return true;
-    }
-  }
-
-  Future<bool> checkIfPhoneAlreadyExists(String phone) async {
-    String myQuery = """
-            query MyQuery {
-              private_usersPrecoBom(
-                where: {
-                  phone_number: {_eq: "$phone"}}) {
-                phone_number
-              }
-            }
-            """;
-
-    print('QUERY ENVIADA CONSULTAR TELEFONE: \n $myQuery');
-
-    var returnPhoneSearch = await myConfigHasuraConnect().query(myQuery);
-    print(
-        'RETORNO DA CONSULTA TELEFONE returnPhoneSearch\n ${returnPhoneSearch['data']['private_usersPrecoBom']}');
-    if (returnPhoneSearch['data']['private_usersPrecoBom'].toString() == '[]') {
-      print(
-          'RETORNO DA CONSULTA TELEFONE FALSO \n ${returnPhoneSearch['data']['private_usersPrecoBom']}');
-      return false;
-    } else {
-      print(
-          'RETORNO DA CONSULTA USUÁRIO VERDADEIRO \n ${returnPhoneSearch['data']['private_usersPrecoBom']}');
       return true;
     }
   }

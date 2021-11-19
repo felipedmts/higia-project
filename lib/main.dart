@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:higia/views/home_view.dart';
 
-import 'views/tela_cadastro.dart';
+import 'views/tela_cadastro_view.dart';
 import 'views/tela_login.dart';
 
 void main() {
