@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:ui';
 
 import 'package:get/get.dart';
+import 'package:higia/controllers/controller_login_social.dart';
 import 'package:higia/controllers/controller_usuario.dart';
-import 'package:higia/views/tela_cadastro_view.dart';
+import 'package:higia/views/cadastro_view.dart';
 
-class TelaLogin extends StatelessWidget {
+class LoginView extends StatelessWidget {
   final controllerUsuario = Get.put(ControllerUsuario());
+  final controllerLoginSocial = Get.put(ControllerLoginSocial());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,11 +59,22 @@ class TelaLogin extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Icon(Icons.facebook_outlined),
+                        IconButton(
+                            onPressed: () =>
+                                controllerLoginSocial.googleLogin(),
+                            icon: FaIcon(
+                              FontAwesomeIcons.google,
+                              color: Colors.green,
+                            )),
                         SizedBox(
                           width: 10,
                         ),
-                        Icon(Icons.g_mobiledata_sharp),
+                        IconButton(
+                            onPressed: () {},
+                            icon: FaIcon(
+                              FontAwesomeIcons.facebook,
+                              color: Colors.blue,
+                            )),
                       ],
                     )
                   ],
@@ -192,7 +207,7 @@ class TelaLogin extends StatelessWidget {
                 height: 100,
               ),
               TextButton(
-                onPressed: () => Get.to(() => TelaCadastro()),
+                onPressed: () => Get.to(() => CadastroView()),
                 child: Text(
                   "Criar Cadastro",
                   style: TextStyle(

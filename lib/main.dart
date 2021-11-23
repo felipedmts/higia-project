@@ -1,17 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:higia/views/home_view.dart';
+import 'package:higia/views/first_view.dart';
 
-import 'views/tela_cadastro_view.dart';
-import 'views/tela_login.dart';
+import 'views/cadastro_view.dart';
+import 'views/login_view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(GetMaterialApp(
     title: 'OLA',
-    home: HomeView(),
-    //home: TelaLogin(),
-    // home: TelaCadastro(),
-    //home: TelaInicialPerfil(),
+    home: FirstView(),
     debugShowCheckedModeBanner: false,
   ));
 }

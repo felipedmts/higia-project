@@ -17,6 +17,7 @@ class UsuarioModel {
     this.email,
     this.cpf,
     this.senha,
+    this.urlImagemPerfil,
     this.atualizadoEm,
     this.criadoEm,
   });
@@ -27,6 +28,7 @@ class UsuarioModel {
   String? email;
   String? cpf;
   String? senha;
+  String? urlImagemPerfil;
   DateTime? atualizadoEm;
   DateTime? criadoEm;
 
@@ -37,6 +39,7 @@ class UsuarioModel {
         email: json["email"],
         cpf: json["cpf"],
         senha: json["senha"],
+        urlImagemPerfil: json["url_imagem_perfil"],
         atualizadoEm: DateTime.parse(json["atualizado_em"]),
         criadoEm: DateTime.parse(json["criado_em"]),
       );
@@ -48,6 +51,7 @@ class UsuarioModel {
         "email": email,
         "cpf": cpf,
         "senha": senha,
+        "url_imagem_perfil": urlImagemPerfil,
         "atualizado_em": atualizadoEm!.toIso8601String(),
         "criado_em": criadoEm!.toIso8601String(),
       };

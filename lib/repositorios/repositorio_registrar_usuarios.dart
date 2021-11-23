@@ -17,6 +17,7 @@ class RepositorioRegistrarUsuarios {
                 nome
                 email
                 cpf
+                url_imagem_perfil
                 atualizado_em
                 criado_em
               }

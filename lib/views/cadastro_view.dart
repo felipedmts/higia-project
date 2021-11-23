@@ -3,9 +3,9 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:higia/controllers/controller_usuario.dart';
-import 'package:higia/views/tela_login.dart';
+import 'package:higia/views/login_view.dart';
 
-class TelaCadastro extends StatelessWidget {
+class CadastroView extends StatelessWidget {
   final controllerUsuario = Get.put(ControllerUsuario());
   @override
   Widget build(BuildContext context) {
@@ -188,25 +188,41 @@ class TelaCadastro extends StatelessWidget {
               SizedBox(
                 width: 180,
                 height: 45,
-                child: ElevatedButton(
-                  onPressed: () => controllerUsuario.registrarUsuario(),
-                  child: Text(
-                    "Cadastrar",
-                    style: TextStyle(fontSize: 22),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadiusDirectional.circular(30.0),
-                    ),
-                    primary: Colors.green,
-                  ),
+                child: GetBuilder<ControllerUsuario>(
+                  builder: (controller) {
+                    return controllerUsuario.estaRegistrando
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator()),
+                              Text('Cadastrando...')
+                            ],
+                          )
+                        : ElevatedButton(
+                            onPressed: () =>
+                                controllerUsuario.validarNome(),
+                            child: Text(
+                              "Cadastrar",
+                              style: TextStyle(fontSize: 22),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: new RoundedRectangleBorder(
+                                borderRadius:
+                                    new BorderRadiusDirectional.circular(30.0),
+                              ),
+                              primary: Colors.green,
+                            ),
+                          );
+                  },
                 ),
               ),
               SizedBox(
                 height: 40,
               ),
               TextButton(
-                onPressed: () => Get.to(() => TelaLogin()),
+                onPressed: () => Get.to(() => LoginView()),
                 child: Text(
                   "Fazer Login",
                   style: TextStyle(
