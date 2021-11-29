@@ -95,38 +95,3 @@ class RepositorioRegistrarUsuarios {
     }
   }
 }
-
-/**
- mutation MyMutation {
-  insert_usuarios(
-    objects: {
-      nome: "Abimael", 
-      email: "abimael@abimael", 
-      cpf: "123456789", 
-      senha: "alguem", 
-      criado_em: "", 
-      atualizado_em: ""
-    }) {
-    affected_rows
-  }
-}
-
-
-query MyQuery {
-  usuarios(
-    where: {
-      cpf: {_eq: "123456789"}, 
-      senha: {_eq: "alguem"}}) 
-  {
-    id_UUID
-    id_incremental
-    nome
-    email
-    cpf
-    atualizado_em
-    criado_em
-  }
-}
-
-
- */

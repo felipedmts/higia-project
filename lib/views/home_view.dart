@@ -8,7 +8,6 @@ import 'package:higia/views/vacina/vacina_view.dart';
 class HomeView extends StatelessWidget {
   final controllerUsuario = Get.put(ControllerUsuario());
   final controllerCamera = Get.put(ControllerCamera());
-
   double alturaTela = 0;
   double larguraTela = 0;
   @override

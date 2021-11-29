@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:higia/controllers/controller_camera.dart';
 import 'package:higia/controllers/controller_usuario.dart';
+import 'package:higia/controllers/vacina_controllers.dart';
+import 'package:higia/generalUse/my_formate_date.dart';
+import 'package:higia/models/usuario_vacina_model.dart';
 import 'package:higia/views/alergias/resistroAlergiaAlerta.dart';
-import 'package:higia/views/vacina/registro_vacina_alerta.dart';
+import 'package:higia/views/vacina/registrar_editar_vacina_alerta.dart';
 
 class VacinaView extends StatelessWidget {
+  @override
+  int get hashCode => super.hashCode;
   final controllerUsuario = Get.put(ControllerUsuario());
+  final vacinaController = Get.put(VacinaController());
   double alturaTela = 0;
   double larguraTela = 0;
   @override
   Widget build(BuildContext context) {
     alturaTela = MediaQuery.of(context).size.height;
     larguraTela = MediaQuery.of(context).size.width;
+    vacinaController.initSubscriptionCarregarListaVacinasPorUsuario();
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -116,58 +124,68 @@ class VacinaView extends StatelessWidget {
               SizedBox(
                 height: alturaTela * 0.02,
               ),
-              Container(
-                width: larguraTela * 0.50,
-                height: alturaTela * 0.05,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: new BorderRadius.circular(30),
-                  color: Colors.blue[800],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "VACINAS E REFORÇO",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
+              Padding(
+                padding: EdgeInsets.only(
+                    right: larguraTela * 0.03, left: larguraTela * 0.03),
+                child: Container(
+                  // width: larguraTela * 0.50,
+                  height: alturaTela * 0.05,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: new BorderRadius.circular(30),
+                    color: Colors.blue[800],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "VACINAS E REFORÇO",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
                 height: alturaTela * 0.025,
               ),
               Padding(
-                padding: EdgeInsets.only(left: larguraTela * 0.05),
+                padding: EdgeInsets.only(
+                    right: larguraTela * 0.03, left: larguraTela * 0.03),
                 child: Row(
                   children: [
-                    SizedBox(
-                        width: larguraTela * 0.30,
-                        height: alturaTela * 0.05,
-                        child: TextButton.icon(
-                          onPressed: () => registroVacinaAlerta(context),
-                          icon: Icon(
-                            Icons.add,
+                    Expanded(
+                      child: TextButton.icon(
+                        onPressed: () {
+                          vacinaController.iniciouEdicao = false;
+                          vacinaController.buscarListaTodasVacinas(
+                            'registrar',
+                          );
+                          registrarEditarVacinaAlerta(context);
+                        },
+                        icon: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'Adicionar Vacinas', // Falta adicionar o icone
+
+                          style: TextStyle(
+                            fontSize: 12,
                             color: Colors.white,
                           ),
-                          label: Text(
-                            'Adicionar Vacinas', // Falta adicionar o icone
-
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.white,
-                            ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green[400],
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.green[400],
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                          ),
-                        )),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -176,16 +194,33 @@ class VacinaView extends StatelessWidget {
               ),
               SizedBox(
                 height: alturaTela * 0.45,
-                width: larguraTela * 0.85,
-                child: GridView.count(
-                  //childAspectRatio: 3 / 3,
-                  crossAxisCount: 3,
-                  children: List.generate(
-                    12,
-                    (index) {
-                      return cartaoModel();
-                    },
-                  ),
+                // width: larguraTela * 0.85,
+                child: GetBuilder<VacinaController>(
+                  builder: (controller) {
+                    return controller.listaVacinasPorUsuario!.isEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                LinearProgressIndicator(),
+                                Text('Buscando vacinas...'),
+                              ],
+                            ),
+                          )
+                        : GridView.count(
+                            //childAspectRatio: 3 / 3,
+                            crossAxisCount: 3,
+                            children: List.generate(
+                              controller.listaVacinasPorUsuario!.length,
+                              (index) {
+                                UsuarioVacinaModel vacina =
+                                    controller.listaVacinasPorUsuario![index];
+                                return cartaoModel(vacina, context);
+                              },
+                            ),
+                          );
+                  },
                 ),
               )
             ],
@@ -195,7 +230,7 @@ class VacinaView extends StatelessWidget {
     );
   }
 
-  Widget cartaoModel() {
+  Widget cartaoModel(UsuarioVacinaModel vacina, BuildContext context) {
     return Card(
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -205,27 +240,72 @@ class VacinaView extends StatelessWidget {
         width: larguraTela * 0.20,
         height: alturaTela * 0.15,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              CircleAvatar(
-                child: Icon(Icons.thermostat_outlined),
+          padding: EdgeInsets.all(larguraTela * 0.02),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CircleAvatar(
+                    child: Icon(
+                      Icons.thermostat_outlined,
+                      size: larguraTela * 0.08,
+                    ),
+                  ),
+                  Text(
+                    '${vacina.vacina!.nome}',
+                    style: TextStyle(
+                        color: Colors.blue[400],
+                        fontSize: larguraTela * 0.035,
+                        fontWeight: FontWeight.w900),
+                  ),
+                  Text(
+                    '${myFormateDateNoHour(vacina.dataVacinacao)}',
+                    style: TextStyle(
+                      color: Colors.green[400],
+                      fontSize: 10,
+                    ),
+                  ),
+                  SizedBox(
+                    height: alturaTela * 0.035,
+                    child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: TextButton.icon(
+                            onPressed: () {
+                              vacinaController.setarVacinaSelecionadaParaEdicao(
+                                  vacina, context);
+                            },
+                            icon: FaIcon(
+                              FontAwesomeIcons.edit,
+                              color: Colors.white,
+                              size: larguraTela * 0.035,
+                            ),
+                            label: Text(
+                              'Editar', // Falta adicionar o icone
+
+                              style: TextStyle(
+                                fontSize: larguraTela * 0.025,
+                                color: Colors.white,
+                              ),
+                              // textAlign: TextAlign.e,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.green[400],
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(
+                                    larguraTela * 0.05),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-              Text(
-                "Sarampo",
-                style: TextStyle(
-                    color: Colors.blue[400],
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900),
-              ),
-              Text(
-                "30/10/2021",
-                style: TextStyle(
-                  color: Colors.green[400],
-                  fontSize: 10,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

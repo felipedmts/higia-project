@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:higia/models/usuarioModel.dart';
 import 'package:higia/repositorios/repositorio_registrar_usuarios.dart';
 import 'package:higia/views/componentes_uso_geral/mySnackBar.dart';
-import 'package:higia/views/tela_inicial.dart';
 import 'package:higia/views/home_view.dart';
 
 class ControllerUsuario extends GetxController {

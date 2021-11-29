@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:higia/views/first_view.dart';
+import 'package:higia/views/inicial_view.dart';
 
 import 'views/cadastro_view.dart';
 import 'views/login_view.dart';
@@ -13,7 +13,7 @@ void main() async {
 
   runApp(GetMaterialApp(
     title: 'OLA',
-    home: FirstView(),
+    home: InicialView(),
     debugShowCheckedModeBanner: false,
   ));
 }

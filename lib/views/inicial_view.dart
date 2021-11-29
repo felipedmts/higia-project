@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:higia/controllers/controller_camera.dart';
+import 'package:higia/controllers/controller_usuario.dart';
+import 'package:higia/controllers/vacina_controllers.dart';
 import 'package:higia/views/cadastro_view.dart';
 import 'package:higia/views/login_view.dart';
 
-class FirstView extends StatelessWidget {
-  
+class InicialView extends StatelessWidget {
+  final controllerUsuario = Get.put(ControllerUsuario());
+  final controllerCamera = Get.put(ControllerCamera());
+  final vacinaController = Get.put(VacinaController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

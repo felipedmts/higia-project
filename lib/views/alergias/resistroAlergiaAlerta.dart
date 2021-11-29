@@ -62,7 +62,8 @@ options() {
         Padding(
           padding: EdgeInsets.only(
               left: larguraTela * 0.05, right: larguraTela * 0.05),
-          child: Expanded(
+          child: SizedBox(
+             width: larguraTela * 0.8,
             child: TextFormField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
