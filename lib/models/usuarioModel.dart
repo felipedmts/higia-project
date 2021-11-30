@@ -14,117 +14,114 @@ class UsuarioModel {
     this.idUuid,
     this.idIncremental,
     this.nome,
-    this.senha,
-    this.cpf,
     this.email,
-    this.criadoEm,
-    this.atualizadoEm,
+    this.cpf,
+    this.senha,
     this.urlImagemPerfil,
-    this.usuarioVacinas,
+    this.dataNascimento,
+    this.atualizadoEm,
+    this.criadoEm,
+    this.sexo,
+    this.tiposSanguineo,
   });
 
   String? idUuid;
   int? idIncremental;
   String? nome;
-  String? senha;
-  String? cpf;
   String? email;
-  DateTime? criadoEm;
-  DateTime? atualizadoEm;
+  String? cpf;
+  String? senha;
   String? urlImagemPerfil;
-  List<UsuarioVacina>? usuarioVacinas;
 
-  factory UsuarioModel.fromJson(Map<String, dynamic> json) {
-    //ajuste para não der erro quando a a lista de vacinas do usuário vier vazi/nula
-    List<UsuarioVacina> ajustList = json["usuario_vacinas"] == null
-        ? []
-        : List<UsuarioVacina>.from(
-            json["usuario_vacinas"].map((x) => UsuarioVacina.fromJson(x)));
-    return UsuarioModel(
-      idUuid: json["id_UUID"],
-      idIncremental: json["id_incremental"],
-      nome: json["nome"],
-      senha: json["senha"],
-      cpf: json["cpf"],
-      email: json["email"],
-      criadoEm: DateTime.parse(json["criado_em"]),
-      atualizadoEm: DateTime.parse(json["atualizado_em"]),
-      urlImagemPerfil: json["url_imagem_perfil"],
-      usuarioVacinas: ajustList,
-    );
-  }
+  DateTime? dataNascimento;
+  DateTime? atualizadoEm;
+  DateTime? criadoEm;
+  Sexo? sexo;
+  TiposSanguineo? tiposSanguineo;
+
+  factory UsuarioModel.fromJson(Map<String, dynamic> json) => UsuarioModel(
+        idUuid: json["id_UUID"],
+        idIncremental: json["id_incremental"],
+        nome: json["nome"],
+        email: json["email"],
+        cpf: json["cpf"],
+        senha: json["senha"],
+        urlImagemPerfil: json["url_imagem_perfil"],
+        dataNascimento: DateTime.parse(json["data_nascimento"]),
+        atualizadoEm: DateTime.parse(json["atualizado_em"]),
+        criadoEm: DateTime.parse(json["criado_em"]),
+        sexo: Sexo.fromJson(json["sexo"]),
+        tiposSanguineo: TiposSanguineo.fromJson(json["tipos_sanguineo"]),
+      );
 
   Map<String, dynamic> toJson() => {
         "id_UUID": idUuid,
         "id_incremental": idIncremental,
         "nome": nome,
-        "senha": senha,
-        "cpf": cpf,
         "email": email,
-        "criado_em": criadoEm!.toIso8601String(),
-        "atualizado_em": atualizadoEm!.toIso8601String(),
+        "cpf": cpf,
+        "senha": senha,
         "url_imagem_perfil": urlImagemPerfil,
-        "usuario_vacinas":
-            List<dynamic>.from(usuarioVacinas!.map((x) => x.toJson())),
+        "data_nascimento": dataNascimento!.toIso8601String(),
+        "atualizado_em": atualizadoEm!.toIso8601String(),
+        "criado_em": criadoEm!.toIso8601String(),
+        "sexo": sexo!.toJson(),
+        "tipos_sanguineo": tiposSanguineo!.toJson(),
       };
 }
 
-class UsuarioVacina {
-  UsuarioVacina({
-    this.id,
-    this.idUsuario,
-    this.dataVacinacao,
-    this.vacina,
-  });
-
-  String? id;
-  String? idUsuario;
-  DateTime? dataVacinacao;
-  Vacina? vacina;
-
-  factory UsuarioVacina.fromJson(Map<String, dynamic> json) => UsuarioVacina(
-        id: json["id"],
-        idUsuario: json["id_usuario"],
-        dataVacinacao: DateTime.parse(json["data_vacinacao"]),
-        vacina: Vacina.fromJson(json["vacina"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "id_usuario": idUsuario,
-        "data_vacinacao": dataVacinacao!.toIso8601String(),
-        "vacina": vacina!.toJson(),
-      };
-}
-
-class Vacina {
-  Vacina({
+class Sexo {
+  Sexo({
     this.id,
     this.nome,
-    this.faixaEtaria,
-    this.descricaoServentia,
-    this.createdAt,
+    this.descricao,
   });
 
   int? id;
   String? nome;
-  String? faixaEtaria;
-  String? descricaoServentia;
-  DateTime? createdAt;
+  String? descricao;
 
-  factory Vacina.fromJson(Map<String, dynamic> json) => Vacina(
+  factory Sexo.fromJson(Map<String, dynamic> json) => Sexo(
         id: json["id"],
         nome: json["nome"],
-        faixaEtaria: json["faixa_etaria"],
-        descricaoServentia: json["descricao_serventia"],
-        createdAt: DateTime.parse(json["created_at"]),
+        descricao: json["descricao"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "nome": nome,
-        "faixa_etaria": faixaEtaria,
-        "descricao_serventia": descricaoServentia,
-        "created_at": createdAt!.toIso8601String(),
+        "descricao": descricao,
+      };
+}
+
+class TiposSanguineo {
+  TiposSanguineo({
+    this.id,
+    this.tipo,
+    this.recebeDe,
+    this.doaPara,
+    this.urlImageType,
+  });
+
+  int? id;
+  String? tipo;
+  String? recebeDe;
+  String? doaPara;
+  String? urlImageType;
+
+  factory TiposSanguineo.fromJson(Map<String, dynamic> json) => TiposSanguineo(
+        id: json["id"],
+        tipo: json["tipo"],
+        recebeDe: json["recebe_de"],
+        doaPara: json["doa_para"],
+        urlImageType: json["url_image_type"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "tipo": tipo,
+        "recebe_de": recebeDe,
+        "doa_para": doaPara,
+        "url_image_type": urlImageType,
       };
 }

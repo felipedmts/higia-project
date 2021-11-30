@@ -7,6 +7,7 @@ import 'package:higia/controllers/vacina_controllers.dart';
 import 'package:higia/generalUse/my_formate_date.dart';
 import 'package:higia/models/usuario_vacina_model.dart';
 import 'package:higia/views/alergias/resistroAlergiaAlerta.dart';
+import 'package:higia/views/componentes_uso_geral/info_perfil.dart';
 import 'package:higia/views/vacina/registrar_editar_vacina_alerta.dart';
 
 class VacinaView extends StatelessWidget {
@@ -26,204 +27,133 @@ class VacinaView extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         //color: Colors.black,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                width: larguraTela * 0.9,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
+        child: Padding(
+          padding: EdgeInsets.only(top: alturaTela * 0.03),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                inforPerfil(context),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 25, top: 100),
-                    ),
-                    GetBuilder<ControllerCamera>(
-                      builder: (controller) {
-                        return controllerUsuario
-                                        .usuarioLogado.urlImagemPerfil !=
-                                    'no' &&
-                                controller.fotoCapturada == null
-                            ? CircleAvatar(
-                                child: ClipOval(
-                                  child: Image.network(
-                                    controllerUsuario
-                                        .usuarioLogado.urlImagemPerfil!,
-                                    width: larguraTela * 0.1,
-                                    height: larguraTela * 0.1,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              )
-                            : controller.fotoCapturada == null
-                                ? CircleAvatar(
-                                    child: Icon(Icons.person),
-                                  )
-                                : CircleAvatar(
-                                    // radius: 30,
-                                    child: ClipOval(
-                                      child: Image.file(
-                                        controller.fotoCapturada!,
-                                        width: larguraTela * 0.1,
-                                        height: larguraTela * 0.1,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  );
-                      },
-                    ),
-                    SizedBox(
-                      width: larguraTela * 0.02,
-                    ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${controllerUsuario.usuarioLogado.nome}',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.indigo[300]),
+                      children: <Widget>[
+                        Image.asset(
+                          'assets/images/logo.png',
+                          width: larguraTela * 0.33,
+                          height: alturaTela * 0.15,
                         ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            alignment: Alignment.topLeft,
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            "VER PERFIL",
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black54),
-                          ),
-                        ),
+                        //SizedBox(
+                        //  height: 40,
+                        // ),
                       ],
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/images/logo.png',
-                        width: larguraTela * 0.33,
-                        height: alturaTela * 0.15,
-                      ),
-                      //SizedBox(
-                      //  height: 40,
-                      // ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: alturaTela * 0.02,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    right: larguraTela * 0.03, left: larguraTela * 0.03),
-                child: Container(
-                  // width: larguraTela * 0.50,
-                  height: alturaTela * 0.05,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: new BorderRadius.circular(30),
-                    color: Colors.blue[800],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "VACINAS E REFORÇO",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
+                SizedBox(
+                  height: alturaTela * 0.02,
                 ),
-              ),
-              SizedBox(
-                height: alturaTela * 0.025,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    right: larguraTela * 0.03, left: larguraTela * 0.03),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextButton.icon(
-                        onPressed: () {
-                          vacinaController.iniciouEdicao = false;
-                          vacinaController.buscarListaTodasVacinas(
-                            'registrar',
-                          );
-                          registrarEditarVacinaAlerta(context);
-                        },
-                        icon: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          'Adicionar Vacinas', // Falta adicionar o icone
-
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green[400],
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0),
-                          ),
-                        ),
-                      ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      right: larguraTela * 0.03, left: larguraTela * 0.03),
+                  child: Container(
+                    // width: larguraTela * 0.50,
+                    height: alturaTela * 0.05,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: new BorderRadius.circular(30),
+                      color: Colors.blue[800],
                     ),
-                  ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "VACINAS E REFORÇO",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: larguraTela * 0.010,
-              ),
-              SizedBox(
-                height: alturaTela * 0.45,
-                // width: larguraTela * 0.85,
-                child: GetBuilder<VacinaController>(
-                  builder: (controller) {
-                    return controller.listaVacinasPorUsuario!.isEmpty
-                        ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                LinearProgressIndicator(),
-                                Text('Buscando vacinas...'),
-                              ],
-                            ),
-                          )
-                        : GridView.count(
-                            //childAspectRatio: 3 / 3,
-                            crossAxisCount: 3,
-                            children: List.generate(
-                              controller.listaVacinasPorUsuario!.length,
-                              (index) {
-                                UsuarioVacinaModel vacina =
-                                    controller.listaVacinasPorUsuario![index];
-                                return cartaoModel(vacina, context);
-                              },
-                            ),
-                          );
-                  },
+                SizedBox(
+                  height: alturaTela * 0.025,
                 ),
-              )
-            ],
+                Padding(
+                  padding: EdgeInsets.only(
+                      right: larguraTela * 0.03, left: larguraTela * 0.03),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextButton.icon(
+                          onPressed: () {
+                            vacinaController.iniciouEdicao = false;
+                            vacinaController.buscarListaTodasVacinas(
+                              'registrar',
+                            );
+                            registrarEditarVacinaAlerta(context);
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                          label: Text(
+                            'Adicionar Vacinas', // Falta adicionar o icone
+
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green[400],
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: larguraTela * 0.010,
+                ),
+                SizedBox(
+                  height: alturaTela * 0.45,
+                  // width: larguraTela * 0.85,
+                  child: GetBuilder<VacinaController>(
+                    builder: (controller) {
+                      return controller.listaVacinasPorUsuario!.isEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  LinearProgressIndicator(),
+                                  Text('Buscando vacinas...'),
+                                ],
+                              ),
+                            )
+                          : GridView.count(
+                              //childAspectRatio: 3 / 3,
+                              crossAxisCount: 3,
+                              children: List.generate(
+                                controller.listaVacinasPorUsuario!.length,
+                                (index) {
+                                  UsuarioVacinaModel vacina =
+                                      controller.listaVacinasPorUsuario![index];
+                                  return cartaoModel(vacina, context);
+                                },
+                              ),
+                            );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

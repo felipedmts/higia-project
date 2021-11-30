@@ -8,6 +8,7 @@ import 'package:higia/models/vacina_model.dart';
 import 'package:higia/repositorios/repositorio_vacina.dart';
 import 'package:higia/views/componentes_uso_geral/mySnackBar.dart';
 import 'package:higia/views/vacina/registrar_editar_vacina_alerta.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final controllerUsuario = Get.put(ControllerUsuario());
 
@@ -24,7 +25,7 @@ class VacinaController extends GetxController {
 //não funcionou mesmo criando novo objeto do mesmo tipo...
     VacinaModel? vacinaASerCarregadaNoDropDown = registrarEditar == 'editar'
         ? listaTodasVacinas
-            .firstWhere((vacina) => vacina.id == vacinaSelecionadaEdicao!.id)
+            .firstWhere((vacina) => vacina.id == idVacinaSelecionadaEdicao)
         : listaTodasVacinas[0];
     setarVacinaSelecionadaNoDropDown(vacinaASerCarregadaNoDropDown);
   }
@@ -53,6 +54,7 @@ class VacinaController extends GetxController {
       idUsuario: controllerUsuario.usuarioLogado.idUuid,
       idVacina: vacinaSelecionadaNoDropDown!.id,
       dataVacinacao: dataSelecionadaSemFormatar,
+      urlFotoVacina: urlImagemFotoVacina,
     );
     bool foiCadastrada =
         await RepositorioVacina().cadastrarVacinaUsuario(usuarioVacina);
@@ -94,21 +96,15 @@ class VacinaController extends GetxController {
 
 //PROCESSOD DE EDITAR
   bool iniciouEdicao = false;
-  VacinaModel? vacinaSelecionadaEdicao;
+  int? idVacinaSelecionadaEdicao;
+  String? idRelacaoUsuarioVacina;
   setarVacinaSelecionadaParaEdicao(
       UsuarioVacinaModel vacinaParam, BuildContext context) {
     iniciouEdicao = true;
-    vacinaSelecionadaEdicao = VacinaModel(
-      id: vacinaParam.vacina!.id,
-      nome: vacinaParam.vacina!.nome,
-      descricaoServentia: vacinaParam.vacina!.descricaoServentia,
-      faixaEtaria: vacinaParam.vacina!.faixaEtaria,
-      createdAt: vacinaParam.vacina!.createdAt,
-    );
+    idVacinaSelecionadaEdicao = vacinaParam.vacina!.id;
+    idRelacaoUsuarioVacina = vacinaParam.id;
     dataController.text = myFormateDateNoHour(vacinaParam.dataVacinacao);
     dataSelecionadaSemFormatar = vacinaParam.dataVacinacao;
-
-    // vacinaSelecionadaNoDropDown = vacinaSelecionadaEdicao;
 
     if (listaTodasVacinas.isEmpty) {
       buscarListaTodasVacinas('editar');
@@ -116,18 +112,20 @@ class VacinaController extends GetxController {
       vacinaSelecionadaNoDropDown = listaTodasVacinas
           .firstWhere((vacina) => vacina.id == vacinaParam.vacina!.id);
     }
+
     registrarEditarVacinaAlerta(context);
   }
 
   bool estaAtualizandoVacina = false;
-  void atualizarVacinaUsuario(UsuarioVacinaModel vacina) async {
+  void atualizarVacinaUsuario() async {
     estaAtualizandoVacina = true;
     update();
     UsuarioVacinaCadModel usuarioVacina = UsuarioVacinaCadModel(
-      id: vacina.id, // id do relacionamento a ser atualizado
+      id: idRelacaoUsuarioVacina,
       idUsuario: controllerUsuario.usuarioLogado.idUuid,
       idVacina: vacinaSelecionadaNoDropDown!.id,
       dataVacinacao: dataSelecionadaSemFormatar,
+      urlFotoVacina: urlImagemFotoVacina,
     );
     bool foiAtualizada =
         await RepositorioVacina().atualizarVacinaUsuario(usuarioVacina);
@@ -138,18 +136,35 @@ class VacinaController extends GetxController {
     if (foiAtualizada) {
       Get.back();
       mySnackBar(
-        'Muito be!',
-        'Vacina cadastrada!',
+        'Muito bem!',
+        'Vacina atualizada!',
         Icons.check,
         Colors.green,
       );
     } else {
       mySnackBar(
         'Ops!',
-        'Erro ao registrar Vacina!!',
+        'Erro ao atualizar Vacina!!',
         Icons.error,
         Colors.red,
       );
     }
+  }
+
+  void escolherEditarCadastrar() {
+    if (iniciouEdicao) {
+      atualizarVacinaUsuario();
+    } else {
+      cadastrarVacinaUsuario();
+    }
+  }
+
+  String urlImagemFotoVacina = 'no';
+  void carregarUrlImagemFotoVacina(String url) {
+    urlImagemFotoVacina = url;
+  }
+
+  void verFotoVacina() async {
+    if (!await launch(urlImagemFotoVacina)) throw 'Could not launch $urlImagemFotoVacina';
   }
 }

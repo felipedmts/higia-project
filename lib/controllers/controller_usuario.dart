@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:higia/models/usuarioModel.dart';
-import 'package:higia/repositorios/repositorio_registrar_usuarios.dart';
+import 'package:higia/repositorios/repositorio_usuarios.dart';
 import 'package:higia/views/componentes_uso_geral/mySnackBar.dart';
 import 'package:higia/views/home_view.dart';
 
@@ -98,7 +98,7 @@ class ControllerUsuario extends GetxController {
       senha: senhaController.text,
     );
     bool foiSalvo =
-        await RepositorioRegistrarUsuarios().registrarUsuario(usuario);
+        await RepositorioUsuario().registrarUsuario(usuario);
 
     estaRegistrando = false;
     update();
@@ -125,7 +125,7 @@ class ControllerUsuario extends GetxController {
       senha: senhaController.text,
     );
     UsuarioModel usuarioRetornado =
-        await RepositorioRegistrarUsuarios().validarUsuario(usuario);
+        await RepositorioUsuario().validarUsuario(usuario);
 
     usuarioLogado = usuarioRetornado;
 

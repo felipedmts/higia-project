@@ -47,7 +47,8 @@ class RepositorioVacina {
                 objects: {
                   id_usuario: "${usuarioVacinaCadModel.idUsuario}", 
                   id_vacina: ${usuarioVacinaCadModel.idVacina}, 
-                  data_vacinacao: "${usuarioVacinaCadModel.dataVacinacao}"
+                  data_vacinacao: "${usuarioVacinaCadModel.dataVacinacao}",
+                  url_foto_vacina: "${usuarioVacinaCadModel.urlFotoVacina}"
                 }) {
                 affected_rows
               }
@@ -55,9 +56,9 @@ class RepositorioVacina {
             """;
 
     //   print('CADASTRAR VACINA_USUARIO: $myMutation');
-    var returnRegisterNewExpense = await connect.mutation(myMutation);
+    var returnCadastroVacina = await connect.mutation(myMutation);
 
-    if (returnRegisterNewExpense['data']['insert_usuario_vacina']
+    if (returnCadastroVacina['data']['insert_usuario_vacina']
             ['affected_rows'] ==
         0) {
       return false;
@@ -76,6 +77,7 @@ class RepositorioVacina {
                   }}) {
                 id
                 id_usuario
+                url_foto_vacina
                 id_vacina
                 data_vacinacao
                 vacina {
@@ -112,11 +114,12 @@ class RepositorioVacina {
       UsuarioVacinaCadModel usuarioVacinaCadModel) async {
     String myMutation = """
             mutation MyMutation {
-              insert_usuario_vacina(
-                objects: {
-                  id_usuario: "${usuarioVacinaCadModel.idUsuario}", 
+              update_usuario_vacina(
+                where: {id: {_eq: "${usuarioVacinaCadModel.id}"}}, 
+                _set: {
                   id_vacina: ${usuarioVacinaCadModel.idVacina}, 
-                  data_vacinacao: "${usuarioVacinaCadModel.dataVacinacao}"
+                  data_vacinacao: "${usuarioVacinaCadModel.dataVacinacao}",
+                  url_foto_vacina: "${usuarioVacinaCadModel.urlFotoVacina}"
                 }) {
                 affected_rows
               }
@@ -124,9 +127,9 @@ class RepositorioVacina {
             """;
 
     // print('CADASTRAR VACINA_USUARIO: $myMutation');
-    var returnRegisterNewExpense = await connect.mutation(myMutation);
+    var returnAtualizacaoVacina = await connect.mutation(myMutation);
 
-    if (returnRegisterNewExpense['data']['insert_usuario_vacina']
+    if (returnAtualizacaoVacina['data']['update_usuario_vacina']
             ['affected_rows'] ==
         0) {
       return false;

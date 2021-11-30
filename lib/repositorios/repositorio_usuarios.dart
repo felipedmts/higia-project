@@ -1,7 +1,7 @@
 import 'package:higia/constants/constants.dart';
 import 'package:higia/models/usuarioModel.dart';
 
-class RepositorioRegistrarUsuarios {
+class RepositorioUsuario {
   final connect = myConfigHasuraConnect();
 
   Future<UsuarioModel> validarUsuario(UsuarioModel usuario) async {
@@ -18,8 +18,21 @@ class RepositorioRegistrarUsuarios {
                 email
                 cpf
                 url_imagem_perfil
+                data_nascimento
                 atualizado_em
                 criado_em
+                sexo {
+                      id
+                      nome
+                      descricao
+                }
+                tipos_sanguineo {
+                      id
+                      tipo
+                      recebe_de
+                      doa_para
+                      url_image_type
+                }
               }
             }
             """;

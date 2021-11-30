@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:higia/controllers/controller_camera.dart';
 import 'package:higia/controllers/vacina_controllers.dart';
 import 'package:higia/views/vacina/drop_down_lista_vacinas.dart';
 
 double alturaTela = 0;
 double larguraTela = 0;
 final vacinaController = Get.put(VacinaController());
+final controllerCamera = Get.put(ControllerCamera());
 registrarEditarVacinaAlerta(BuildContext context) {
   alturaTela = MediaQuery.of(context).size.height;
   larguraTela = MediaQuery.of(context).size.width;
-
-/*
-  if (!vacinaController.iniciouEdicao ||
-      vacinaController.listaTodasVacinas.isEmpty) {
-    vacinaController.buscarListaTodasVacinas();
-  }
-  */
 
   showDialog(
     context: context,
@@ -48,9 +43,22 @@ options(BuildContext context) {
     height: alturaTela * 0.60,
     width: larguraTela * 0.8,
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              onPressed: () => Get.back(),
+              icon: FaIcon(
+                FontAwesomeIcons.times,
+                color: Colors.red,
+                size: larguraTela * 0.07,
+              ),
+            ),
+          ],
+        ),
         Icon(
           Icons.bloodtype_outlined,
           color: Colors.indigo[400],
@@ -87,28 +95,63 @@ options(BuildContext context) {
               left: larguraTela * 0.05, right: larguraTela * 0.05),
           child: SizedBox(
             width: larguraTela * 0.8,
-            child: GestureDetector(
-              child: TextFormField(
-                controller: vacinaController.dataController,
-                keyboardType: TextInputType.emailAddress,
-                textAlign: TextAlign.center,
-                enabled: false,
-                decoration: InputDecoration(
-                  labelText: "Data da vacina",
-                  labelStyle: TextStyle(
-                    fontSize: larguraTela * 0.04,
-                    color: Colors.grey.shade600,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      color: Colors.grey.shade300,
+            child: Row(
+              children: [
+                GestureDetector(
+                  child: SizedBox(
+                    width: larguraTela * 0.4,
+                    child: TextFormField(
+                      controller: vacinaController.dataController,
+                      keyboardType: TextInputType.emailAddress,
+                      textAlign: TextAlign.center,
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: "Data da vacina",
+                        labelStyle: TextStyle(
+                          fontSize: larguraTela * 0.04,
+                          color: Colors.grey.shade600,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+                      ),
+                      // onTap: () => _selecionarData(context),
                     ),
                   ),
+                  onTap: () => _selecionarData(context),
                 ),
-                // onTap: () => _selecionarData(context),
-              ),
-              onTap: () => _selecionarData(context),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.green,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () =>
+                            controllerCamera.fotoDaCamera('vacina'),
+                        icon: FaIcon(
+                          FontAwesomeIcons.camera,
+                          color: Colors.green,
+                          size: larguraTela * 0.05,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => vacinaController.verFotoVacina(),
+                        icon: FaIcon(
+                          FontAwesomeIcons.eye,
+                          color: Colors.blue,
+                          size: larguraTela * 0.05,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ),
@@ -123,16 +166,19 @@ options(BuildContext context) {
               Expanded(
                 child: GetBuilder<VacinaController>(
                   builder: (controller) {
-                    return controller.estaCadastrandoVacina
+                    return controller.estaCadastrandoVacina ||
+                            controller.estaAtualizandoVacina
                         ? Column(
                             children: [
                               LinearProgressIndicator(),
-                              Text('Cadastrando vacinas'),
+                              Text(!vacinaController.iniciouEdicao
+                                  ? 'Cadastrando vacinas'
+                                  : 'Atualizando vacinas'),
                             ],
                           )
                         : TextButton.icon(
                             onPressed: () =>
-                                controller.cadastrarVacinaUsuario(),
+                                controller.escolherEditarCadastrar(),
                             icon: FaIcon(
                               !vacinaController.iniciouEdicao
                                   ? FontAwesomeIcons.save

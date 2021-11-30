@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:higia/controllers/controller_camera.dart';
 import 'package:higia/controllers/controller_usuario.dart';
+import 'package:higia/generalUse/my_count%20age.dart';
 import 'package:higia/views/alergias/alergias_view.dart';
+import 'package:higia/views/alergias/resistroAlergiaAlerta.dart';
+import 'package:higia/views/componentes_uso_geral/info_perfil.dart';
 import 'package:higia/views/vacina/vacina_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -20,92 +23,11 @@ class HomeView extends StatelessWidget {
         height: double.infinity,
         color: Colors.white10,
         child: Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: alturaTela * 0.03),
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: alturaTela * 0.02),
-                  child: SizedBox(
-                    width: 400,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 25, top: 100),
-                        ),
-                        GestureDetector(
-                          child: GetBuilder<ControllerCamera>(
-                            builder: (controller) {
-                              return controllerUsuario
-                                              .usuarioLogado.urlImagemPerfil !=
-                                          'no' &&
-                                      controller.fotoCapturada == null
-                                  ? CircleAvatar(
-                                      child: ClipOval(
-                                        child: Image.network(
-                                          controllerUsuario
-                                              .usuarioLogado.urlImagemPerfil!,
-                                          width: larguraTela * 0.1,
-                                          height: larguraTela * 0.1,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    )
-                                  : controller.fotoCapturada == null
-                                      ? CircleAvatar(
-                                          child: Icon(Icons.person),
-                                        )
-                                      : CircleAvatar(
-                                          // radius: 30,
-                                          child: ClipOval(
-                                            child: Image.file(
-                                              controller.fotoCapturada!,
-                                              width: larguraTela * 0.1,
-                                              height: larguraTela * 0.1,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        );
-                            },
-                          ),
-                          onTap: () => controllerCamera.fotoDaCamera(),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${controllerUsuario.usuarioLogado.nome}',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.indigo[300]),
-                            ),
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                alignment: Alignment.topLeft,
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                "VER PERFIL",
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black54),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                inforPerfil(context),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
