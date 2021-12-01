@@ -48,25 +48,15 @@ class HomeView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    minhaEstruturaCard(Icons.copy, 'Vacinas'),
+                    minhaEstruturaCard(
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Fvacina%201.png?alt=media&token=ef9542d9-055d-489a-9395-5767542352c6',
+                        'Vacinas'),
                     SizedBox(
                       width: 10,
                     ),
                     minhaEstruturaCard(
-                        Icons.device_thermostat_outlined, 'Alergias'),
-                  ],
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    minhaEstruturaCard(Icons.recent_actors_rounded, 'Genética'),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    minhaEstruturaCard(Icons.control_point, 'Doenças'),
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Fexames.png?alt=media&token=5cf79797-68c8-4a96-9053-1b3d67f71c06',
+                        'Exames'),
                   ],
                 ),
                 SizedBox(
@@ -76,25 +66,14 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     minhaEstruturaCard(
-                        Icons.quick_contacts_dialer_rounded, 'Contatos'),
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Falergia.png?alt=media&token=fd398316-2dbb-4037-90ac-0c77b2f66cbf',
+                        'Alergias'),
                     SizedBox(
                       width: 10,
                     ),
                     minhaEstruturaCard(
-                        Icons.family_restroom_outlined, 'Hist. Família'),
-                  ],
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    minhaEstruturaCard(Icons.content_paste_sharp, 'Exames'),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    minhaEstruturaCard(Icons.qr_code_2_sharp, 'Hist. QR. Code'),
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Fdoencas.png?alt=media&token=5b20d968-da60-4de5-b357-c8d0c3471cb7',
+                        'Doenças'),
                   ],
                 ),
                 SizedBox(
@@ -104,7 +83,42 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     minhaEstruturaCard(
-                        Icons.invert_colors_sharp, 'Med.Continuada'),
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Fcontatos.png?alt=media&token=90a8b10b-84da-40f8-860b-2d21c84dcaea',
+                        'Contatos'),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    minhaEstruturaCard(
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Fhist_familiar.png?alt=media&token=af221bd1-4960-49e1-9eff-68942b4054f9',
+                        'Hist. Família'),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    minhaEstruturaCard(
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Fgenetica.png?alt=media&token=08f5a064-405c-4260-853c-eb6c60b8d576',
+                        'Genética'),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    minhaEstruturaCard(
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Fqr_code.png?alt=media&token=78964ed6-14dd-426b-badb-4ddd9da90879',
+                        'Hist. QR. Code'),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    minhaEstruturaCard(
+                        'https://firebasestorage.googleapis.com/v0/b/higia-24149.appspot.com/o/icones_categorias_pagina_inicial%2Fmed_continuada.png?alt=media&token=9e03467e-92c4-48e6-aa58-4018b5654fda',
+                        'Med.Continuada'),
                   ],
                 ),
               ],
@@ -116,7 +130,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget minhaEstruturaCard(IconData icon, String title) {
+  Widget minhaEstruturaCard(String url, String title) {
     return SizedBox(
       height: 70,
       width: 200,
@@ -128,11 +142,11 @@ class HomeView extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
-                child: Icon(
-                  icon,
-                ),
+                child: Image.network(url),
+                backgroundColor: Colors.transparent,
               ),
               SizedBox(
                 width: 5,

@@ -14,6 +14,7 @@ class UsuarioVacinaModel {
   UsuarioVacinaModel({
     this.id,
     this.idUsuario,
+    this.urlFotoVacina,
     this.idVacina,
     this.dataVacinacao,
     this.vacina,
@@ -21,6 +22,7 @@ class UsuarioVacinaModel {
 
   String? id;
   String? idUsuario;
+  String? urlFotoVacina;
   int? idVacina;
   DateTime? dataVacinacao;
   Vacina? vacina;
@@ -29,6 +31,7 @@ class UsuarioVacinaModel {
       UsuarioVacinaModel(
         id: json["id"],
         idUsuario: json["id_usuario"],
+        urlFotoVacina: json["url_foto_vacina"],
         idVacina: json["id_vacina"],
         dataVacinacao: DateTime.parse(json["data_vacinacao"]),
         vacina: Vacina.fromJson(json["vacina"]),
@@ -37,6 +40,7 @@ class UsuarioVacinaModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "id_usuario": idUsuario,
+        "url_foto_vacina": urlFotoVacina,
         "id_vacina": idVacina,
         "data_vacinacao": dataVacinacao!.toIso8601String(),
         "vacina": vacina!.toJson(),

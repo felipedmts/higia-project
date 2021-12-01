@@ -90,6 +90,7 @@ class VacinaView extends StatelessWidget {
                         child: TextButton.icon(
                           onPressed: () {
                             vacinaController.iniciouEdicao = false;
+                            vacinaController.urlImagemFotoVacina = 'no';
                             vacinaController.buscarListaTodasVacinas(
                               'registrar',
                             );

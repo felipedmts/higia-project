@@ -103,7 +103,7 @@ options(BuildContext context) {
                     child: TextFormField(
                       controller: vacinaController.dataController,
                       keyboardType: TextInputType.emailAddress,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.start,
                       enabled: false,
                       decoration: InputDecoration(
                         labelText: "Data da vacina",
@@ -129,26 +129,34 @@ options(BuildContext context) {
                         color: Colors.green,
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () =>
-                            controllerCamera.fotoDaCamera('vacina'),
-                        icon: FaIcon(
-                          FontAwesomeIcons.camera,
-                          color: Colors.green,
-                          size: larguraTela * 0.05,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () => vacinaController.verFotoVacina(),
-                        icon: FaIcon(
-                          FontAwesomeIcons.eye,
-                          color: Colors.blue,
-                          size: larguraTela * 0.05,
-                        ),
-                      ),
-                    ],
+                  child: GetBuilder<VacinaController>(
+                    builder: (_) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () =>
+                                controllerCamera.fotoDaCamera('vacina'),
+                            icon: FaIcon(
+                              FontAwesomeIcons.camera,
+                              color: Colors.green,
+                              size: larguraTela * 0.05,
+                            ),
+                          ),
+                          vacinaController.urlImagemFotoVacina == 'no'
+                              ? SizedBox()
+                              : IconButton(
+                                  onPressed: () =>
+                                      vacinaController.verFotoVacina(),
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.eye,
+                                    color: Colors.blue,
+                                    size: larguraTela * 0.05,
+                                  ),
+                                ),
+                        ],
+                      );
+                    },
                   ),
                 )
               ],

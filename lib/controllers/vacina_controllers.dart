@@ -105,6 +105,7 @@ class VacinaController extends GetxController {
     idRelacaoUsuarioVacina = vacinaParam.id;
     dataController.text = myFormateDateNoHour(vacinaParam.dataVacinacao);
     dataSelecionadaSemFormatar = vacinaParam.dataVacinacao;
+    urlImagemFotoVacina = vacinaParam.urlFotoVacina!;
 
     if (listaTodasVacinas.isEmpty) {
       buscarListaTodasVacinas('editar');
@@ -165,6 +166,9 @@ class VacinaController extends GetxController {
   }
 
   void verFotoVacina() async {
-    if (!await launch(urlImagemFotoVacina)) throw 'Could not launch $urlImagemFotoVacina';
+    print('URL A CHAMAR: $urlImagemFotoVacina');
+
+    if (!await launch(urlImagemFotoVacina))
+      throw 'Could not launch $urlImagemFotoVacina';
   }
 }
