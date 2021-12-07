@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:higia/views/inicial_view.dart';
 
-import 'views/cadastro_view.dart';
 import 'views/login_view.dart';
 
 void main() async {

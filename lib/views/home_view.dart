@@ -6,6 +6,7 @@ import 'package:higia/generalUse/my_count%20age.dart';
 import 'package:higia/views/alergias/alergias_view.dart';
 import 'package:higia/views/alergias/resistroAlergiaAlerta.dart';
 import 'package:higia/views/componentes_uso_geral/info_perfil.dart';
+import 'package:higia/views/exame/exame_view.dart';
 import 'package:higia/views/vacina/vacina_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -197,6 +198,9 @@ class HomeView extends StatelessWidget {
     switch (opcao) {
       case 'Vacinas':
         Get.to(() => VacinaView());
+        break;
+      case 'Exames':
+        Get.to(() => ExamesView());
         break;
       case 'Alergias':
         Get.to(() => AlergiasView());

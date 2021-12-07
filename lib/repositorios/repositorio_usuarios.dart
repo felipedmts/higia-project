@@ -57,7 +57,10 @@ class RepositorioUsuario {
                   nome: "${usuario.nome}", 
                   email: "${usuario.email}", 
                   cpf: "${usuario.cpf}", 
-                  senha:"${usuario.senha}", 
+                  senha: "${usuario.senha}", 
+                  data_nascimento: "${usuario.dataNascimento}", 
+                  id_sexo: ${usuario.sexo!.id}, 
+                  id_tipo_sanguineo: ${usuario.tiposSanguineo!.id}
                 }) {
                 affected_rows
               }
@@ -105,6 +108,62 @@ class RepositorioUsuario {
       print(
           'RETORNO DA CONSULTA USUÁRIO VERDADEIRO \n ${returnUserSearch['data']['private_usersPrecoBom']}');
       return true;
+    }
+  }
+
+  Future<List<TiposSanguineo>> buscarListTiposSanguinea() async {
+    String myQuery = """
+            query MyQuery {
+              tipos_sanguineos {
+                id
+                tipo
+                recebe_de
+                doa_para
+                url_image_type
+              }
+            }
+            """;
+
+    // print('QUERY ENVIADA CONSULTAR USUÁRIOS: \n $myQuery');
+
+    var retornoBiscarTiposSanguineos =
+        await myConfigHasuraConnect().query(myQuery);
+
+    if (retornoBiscarTiposSanguineos['data']['tipos_sanguineos'].toString() ==
+        '[]') {
+      return [];
+    } else {
+      List<TiposSanguineo> listaTiposSanguineo = [];
+      retornoBiscarTiposSanguineos['data']['tipos_sanguineos'].forEach((tipos) {
+        listaTiposSanguineo.add(TiposSanguineo.fromJson(tipos));
+      });
+      return listaTiposSanguineo;
+    }
+  }
+
+  Future<List<Sexo>> buscarListaSexos() async {
+    String myQuery = """
+          query MyQuery {
+            sexos {
+              id
+              nome
+              descricao
+            }
+          }
+            """;
+
+    // print('QUERY ENVIADA CONSULTAR : \n $myQuery');
+
+    var retornoBuscarSexos = await myConfigHasuraConnect().query(myQuery);
+
+    if (retornoBuscarSexos['data']['sexos'].toString() == '[]') {
+      return [];
+    } else {
+      List<Sexo> listaSexos = [];
+      retornoBuscarSexos['data']['sexos'].forEach((sexo) {
+        listaSexos.add(Sexo.fromJson(sexo));
+      });
+      return listaSexos;
     }
   }
 }

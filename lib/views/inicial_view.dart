@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:higia/controllers/controller_camera.dart';
 import 'package:higia/controllers/controller_usuario.dart';
+import 'package:higia/controllers/exame_controllers.dart';
 import 'package:higia/controllers/vacina_controllers.dart';
-import 'package:higia/views/cadastro_view.dart';
+import 'package:higia/views/cadastro/cadastro_view.dart';
 import 'package:higia/views/login_view.dart';
 
 class InicialView extends StatelessWidget {
   final controllerUsuario = Get.put(ControllerUsuario());
   final controllerCamera = Get.put(ControllerCamera());
   final vacinaController = Get.put(VacinaController());
+  final exameController = Get.put(ExameController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,10 @@ class InicialView extends StatelessWidget {
               width: 250,
               height: 40,
               child: ElevatedButton(
-                onPressed: () => Get.to(() => CadastroView()),
+                onPressed: () {
+                   controllerUsuario.buscarListasTiposSanguineaESexo();
+                  Get.to(() => CadastroView());
+                },
                 child: Text('Fazer Cadastro'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.green,

@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:higia/controllers/controller_login_social.dart';
 import 'package:higia/controllers/controller_usuario.dart';
-import 'package:higia/views/cadastro_view.dart';
+import 'package:higia/views/cadastro/cadastro_view.dart';
 
 class LoginView extends StatelessWidget {
   final controllerUsuario = Get.put(ControllerUsuario());
@@ -207,7 +207,10 @@ class LoginView extends StatelessWidget {
                 height: 100,
               ),
               TextButton(
-                onPressed: () => Get.to(() => CadastroView()),
+                onPressed: () {
+                  controllerUsuario.buscarListasTiposSanguineaESexo();
+                  Get.to(() => CadastroView());
+                },
                 child: Text(
                   "Criar Cadastro",
                   style: TextStyle(
