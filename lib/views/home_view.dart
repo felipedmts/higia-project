@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:higia/controllers/controller_camera.dart';
 import 'package:higia/controllers/controller_usuario.dart';
-import 'package:higia/generalUse/my_count%20age.dart';
 import 'package:higia/views/alergias/alergias_view.dart';
-import 'package:higia/views/alergias/resistroAlergiaAlerta.dart';
 import 'package:higia/views/componentes_uso_geral/info_perfil.dart';
 import 'package:higia/views/exame/exame_view.dart';
 import 'package:higia/views/vacina/vacina_view.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeView extends StatelessWidget {
   final controllerUsuario = Get.put(ControllerUsuario());
@@ -34,10 +33,29 @@ class HomeView extends StatelessWidget {
                   children: [
                     Column(
                       children: <Widget>[
-                        Image.asset(
-                          'assets/images/logo.png',
-                          height: 200,
-                          width: 200,
+                        SizedBox(
+                          width: larguraTela * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Hero(
+                                tag: 'logo',
+                                child: Image.asset(
+                                  'assets/images/logo.png',
+                                  height: 200,
+                                  width: 200,
+                                ),
+                              ),
+                              SizedBox(width: larguraTela * 0.10,),
+                             
+                              Lottie.asset(
+                                'assets/lottie_animations/inicial.json',
+                                height: 100,
+                                width: 100,
+                              ),
+                              
+                            ],
+                          ),
                         ),
                         //SizedBox(
                         //  height: 40,

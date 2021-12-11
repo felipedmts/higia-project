@@ -18,6 +18,7 @@ class LoginView extends StatelessWidget {
         width: double.infinity,
         //color: Colors.blueAccent[100],
         decoration: BoxDecoration(
+            /*
           gradient: LinearGradient(
             end: Alignment.centerRight,
             begin: Alignment.topRight,
@@ -29,17 +30,21 @@ class LoginView extends StatelessWidget {
               Color(0x00246eb9),
             ],
           ),
-        ),
+          */
+            ),
 
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                'assets/images/logo.png',
-                width: 200,
-                height: 200,
+              Hero(
+                tag: 'logo',
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: 200,
+                  height: 200,
+                ),
               ),
               SizedBox(
                 width: 50,

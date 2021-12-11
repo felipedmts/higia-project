@@ -1,4 +1,6 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:ui';
 
@@ -19,8 +21,7 @@ class CadastroView extends StatelessWidget {
   Widget build(BuildContext context) {
     alturaTela = MediaQuery.of(context).size.height;
     larguraTela = MediaQuery.of(context).size.width;
-   
-   
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -157,7 +158,7 @@ class CadastroView extends StatelessWidget {
                         child: TextFormField(
                           key: controllerUsuario.formKeyCpfController,
                           controller: controllerUsuario.cpfController,
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             labelText: "    CPF:",
                             labelStyle: TextStyle(
@@ -168,7 +169,14 @@ class CadastroView extends StatelessWidget {
                                 color: Colors.grey.shade300,
                               ),
                             ),
+                            
                           ),
+                          
+                          inputFormatters: [
+                            // obrigatório
+                            FilteringTextInputFormatter.digitsOnly,
+                            CpfInputFormatter(),
+                          ],
                         ),
 
                         /* TextFormField(

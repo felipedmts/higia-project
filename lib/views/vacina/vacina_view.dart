@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:higia/controllers/controller_camera.dart';
 import 'package:higia/controllers/controller_usuario.dart';
 import 'package:higia/controllers/vacina_controllers.dart';
 import 'package:higia/generalUse/my_formate_date.dart';
 import 'package:higia/models/usuario_vacina_model.dart';
-import 'package:higia/views/alergias/resistroAlergiaAlerta.dart';
 import 'package:higia/views/componentes_uso_geral/info_perfil.dart';
 import 'package:higia/views/vacina/registrar_editar_vacina_alerta.dart';
+import 'package:lottie/lottie.dart';
 
 class VacinaView extends StatelessWidget {
   @override
-  int get hashCode => super.hashCode;
   final controllerUsuario = Get.put(ControllerUsuario());
   final vacinaController = Get.put(VacinaController());
   double alturaTela = 0;
@@ -39,13 +37,11 @@ class VacinaView extends StatelessWidget {
                     SizedBox(
                       height: larguraTela * 0.25,
                       width: larguraTela * 0.25,
-                      child: CircleAvatar(
-                        child: Image.network(
-                          'https://content.govdelivery.com/attachments/fancy_images/USVHA/2021/01/4005196/covid-vaccine-01_original.png',
-                          height: larguraTela * 0.35,
-                          width: larguraTela * 0.5,
-                        ),
-                        backgroundColor: Colors.transparent,
+                      child: Lottie.asset(
+                        'assets/lottie_animations/vacina.json',
+                        height: 100,
+                        width: 100,
+                        repeat: true
                       ),
                     ),
                     Column(

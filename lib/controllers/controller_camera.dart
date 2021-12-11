@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:higia/controllers/controller_usuario.dart';
@@ -14,6 +13,8 @@ final vacinaController = Get.put(VacinaController());
 class ControllerCamera extends GetxController {
   ImagePicker picker = ImagePicker();
 
+  String fotoDe = 'no';
+
   ControllerCamera() {
     picker = ImagePicker();
   }
@@ -22,6 +23,7 @@ class ControllerCamera extends GetxController {
   var fotoCapturada;
 
   void fotoDaCamera(String fotoDe) async {
+    fotoDe = fotoDe;
     XFile? xFile = await picker.pickImage(source: ImageSource.camera);
     fotoCapturada = File(xFile!.path);
     update();

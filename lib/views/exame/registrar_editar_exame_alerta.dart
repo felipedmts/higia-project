@@ -143,8 +143,9 @@ options(BuildContext context) {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            onPressed: () =>
-                                controllerCamera.fotoDaCamera('vacina'),
+                            onPressed: () {
+                              controllerCamera.fotoDaCamera('vacina');
+                            },
                             icon: FaIcon(
                               FontAwesomeIcons.camera,
                               color: Colors.green,
@@ -235,7 +236,7 @@ _selecionarData(BuildContext context) {
   showDatePicker(
           context: context,
           initialDate: DateTime.now(),
-          firstDate: DateTime(2020),
+          firstDate: DateTime(1900),
           lastDate: DateTime.now())
       .then((pickedDate) {
     // Check if no date is selected

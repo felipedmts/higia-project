@@ -32,8 +32,7 @@ Widget inforPerfil(BuildContext context) {
                 child: GetBuilder<ControllerCamera>(
                   builder: (controller) {
                     return controllerUsuario.usuarioLogado.urlImagemPerfil !=
-                                'no' &&
-                            controller.fotoCapturada == null
+                            'no'
                         ? CircleAvatar(
                             child: ClipOval(
                               child: Image.network(

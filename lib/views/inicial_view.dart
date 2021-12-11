@@ -6,6 +6,7 @@ import 'package:higia/controllers/exame_controllers.dart';
 import 'package:higia/controllers/vacina_controllers.dart';
 import 'package:higia/views/cadastro/cadastro_view.dart';
 import 'package:higia/views/login_view.dart';
+import 'package:lottie/lottie.dart';
 
 class InicialView extends StatelessWidget {
   final controllerUsuario = Get.put(ControllerUsuario());
@@ -20,21 +21,25 @@ class InicialView extends StatelessWidget {
         width: double.infinity,
         //color: Colors.lightBlue,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+            /*  gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [Color(0xff38eeff), Color(0x00246eb9)],
           ),
-        ),
+          */
+            ),
 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              'assets/images/logo.png',
-              height: 200,
-              width: 200,
+            Hero(
+              tag: 'logo',
+              child: Image.asset(
+                'assets/images/logo.png',
+                height: 200,
+                width: 200,
+              ),
             ),
             SizedBox(
               height: 40,
@@ -42,7 +47,7 @@ class InicialView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Bem Vindo ao Hígia!',
+                'Bem Vindo!',
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -69,7 +74,7 @@ class InicialView extends StatelessWidget {
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
-                   controllerUsuario.buscarListasTiposSanguineaESexo();
+                  controllerUsuario.buscarListasTiposSanguineaESexo();
                   Get.to(() => CadastroView());
                 },
                 child: Text('Fazer Cadastro'),
@@ -81,6 +86,7 @@ class InicialView extends StatelessWidget {
                 ),
               ),
             ),
+          
           ],
         ),
       ),

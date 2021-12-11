@@ -59,6 +59,7 @@ class RepositorioUsuario {
                   cpf: "${usuario.cpf}", 
                   senha: "${usuario.senha}", 
                   data_nascimento: "${usuario.dataNascimento}", 
+                  url_imagem_perfil: "${usuario.urlImagemPerfil}", 
                   id_sexo: ${usuario.sexo!.id}, 
                   id_tipo_sanguineo: ${usuario.tiposSanguineo!.id}
                 }) {

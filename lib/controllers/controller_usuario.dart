@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:higia/generalUse/my_formate_date.dart';
 import 'package:higia/models/usuarioModel.dart';
 import 'package:higia/repositorios/repositorio_usuarios.dart';
+import 'package:higia/views/cadastro/cadastro_view.dart';
 import 'package:higia/views/componentes_uso_geral/mySnackBar.dart';
 import 'package:higia/views/home_view.dart';
+import 'package:higia/views/login_view.dart';
 
 class ControllerUsuario extends GetxController {
   TextEditingController nomeController = TextEditingController();
@@ -141,6 +143,7 @@ class ControllerUsuario extends GetxController {
       dataNascimento: dataSelecionadaSemFormatar,
       tiposSanguineo: tiposSanguineoSelecionadoNoDrop,
       sexo: sexoSelecionadoNoDrop,
+      urlImagemPerfil: usuarioLogado.urlImagemPerfil,
     );
     bool foiSalvo = await RepositorioUsuario().registrarUsuario(usuario);
 
@@ -151,6 +154,7 @@ class ControllerUsuario extends GetxController {
       Get.back();
       mySnackBar(
           'Muito Bem', 'O usuário foi registrado!', Icons.check, Colors.green);
+      Get.to(() => LoginView());
     } else {
       mySnackBar(
           'Ops', 'O usuário NÃO foi registrado!', Icons.error, Colors.red);
@@ -167,6 +171,7 @@ class ControllerUsuario extends GetxController {
       cpf: cpfController.text,
       email: emailController.text,
       senha: senhaController.text,
+      urlImagemPerfil: usuarioLogado.urlImagemPerfil,
     );
     UsuarioModel usuarioRetornado =
         await RepositorioUsuario().validarUsuario(usuario);
@@ -196,9 +201,14 @@ class ControllerUsuario extends GetxController {
       urlImagemPerfil: usuario.photoURL,
     );
 
+    nomeController.text = usuario.displayName!;
+    emailController.text = usuario.email!;
+    usuarioLogado.urlImagemPerfil = usuario.photoURL;
+    print('VERIFICANDO URL usuarioLogado: ${usuarioLogado.urlImagemPerfil}');
+
     Get.back();
 
-    Get.to(() => HomeView());
+    Get.to(() => CadastroView());
 
     update();
   }

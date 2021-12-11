@@ -23,26 +23,30 @@ Widget listaVacinasDropDown(BuildContext context) {
         : Card(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<VacinaModel>(
-                  elevation: 5,
-                  isExpanded: true,
-                  hint: Text("Selecione a vacina"),
-                  value: controller
-                      .vacinaSelecionadaNoDropDown, //value: _value1.isNotEmpty ? _value1 : null,
-                  itemHeight: alturaTela * 0.10,
-                  onChanged: (VacinaModel? vacinaSelec) {
-                    vacinaController
-                        .setarVacinaSelecionadaNoDropDown(vacinaSelec);
-                  },
-                  items: vacinaController.listaTodasVacinas
-                      .map((VacinaModel vacina) {
-                    return DropdownMenuItem<VacinaModel>(
-                      value: vacina,
-                      child: _listaExpandivelVacina(vacina),
-                    );
-                  }).toList(),
-                ),
+              child: Column(
+                children: [
+                  DropdownButtonHideUnderline(
+                    child: DropdownButton<VacinaModel>(
+                      elevation: 5,
+                      isExpanded: true,
+                      hint: Text("Selecione a vacina"),
+                      value: controller
+                          .vacinaSelecionadaNoDropDown, //value: _value1.isNotEmpty ? _value1 : null,
+                      itemHeight: alturaTela * 0.10,
+                      onChanged: (VacinaModel? vacinaSelec) {
+                        vacinaController
+                            .setarVacinaSelecionadaNoDropDown(vacinaSelec);
+                      },
+                      items: vacinaController.listaTodasVacinas
+                          .map((VacinaModel vacina) {
+                        return DropdownMenuItem<VacinaModel>(
+                          value: vacina,
+                          child: _listaExpandivelVacina(vacina),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
               ),
             ),
           );

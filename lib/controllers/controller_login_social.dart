@@ -27,7 +27,8 @@ class ControllerLoginSocial extends GetxController {
     final usuarioRetornado =
         await FirebaseAuth.instance.signInWithCredential(credenciais);
 
-    print('USUÁRIO RETORNADO DO GOOGLE: ${usuarioRetornado.user!.displayName}');
+   // print('USUÁRIO RETORNADO DO GOOGLE: ${usuarioRetornado.user!.displayName}');
+    controllerUsuario.buscarListasTiposSanguineaESexo();
     controllerUsuario.carregarUsuarioDoLoginSocial(usuarioRetornado.user);
     update();
   }

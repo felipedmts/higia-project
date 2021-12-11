@@ -223,14 +223,14 @@ options(BuildContext context) {
 }
 
 _selecionarData(BuildContext context) {
-  // showDatePicker is a pre-made funtion of Flutter
+ 
   showDatePicker(
           context: context,
           initialDate: DateTime.now(),
-          firstDate: DateTime(2020),
+          firstDate: DateTime(1900),
           lastDate: DateTime.now())
       .then((pickedDate) {
-    // Check if no date is selected
+ 
     if (pickedDate == null) {
       return;
     }

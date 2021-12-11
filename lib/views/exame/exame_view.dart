@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:higia/controllers/controller_camera.dart';
 import 'package:higia/controllers/controller_usuario.dart';
 import 'package:higia/controllers/exame_controllers.dart';
-import 'package:higia/controllers/vacina_controllers.dart';
 import 'package:higia/generalUse/my_formate_date.dart';
 import 'package:higia/models/usuario_exame_model.dart';
-import 'package:higia/models/usuario_vacina_model.dart';
-import 'package:higia/views/alergias/resistroAlergiaAlerta.dart';
 import 'package:higia/views/componentes_uso_geral/info_perfil.dart';
-import 'package:higia/views/exame/icone_ver_exame.dart';
 import 'package:higia/views/exame/registrar_editar_exame_alerta.dart';
-import 'package:higia/views/vacina/registrar_editar_vacina_alerta.dart';
+import 'package:lottie/lottie.dart';
 
 class ExamesView extends StatelessWidget {
   /*
@@ -43,17 +38,10 @@ class ExamesView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: larguraTela * 0.30,
-                      width: larguraTela * 0.30,
-                      child: CircleAvatar(
-                        child: Image.network(
-                          'https://rizing.com/wp-content/uploads/2019/09/201909-EAM-CI-Website-Icons-Health-Check-200x200.png',
-                          height: larguraTela * 0.40,
-                          width: larguraTela * 0.40,
-                        ),
-                        backgroundColor: Colors.transparent,
-                      ),
+                    Lottie.asset(
+                      'assets/lottie_animations/exame.json',
+                      height: 100,
+                      width: 100,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -155,9 +143,9 @@ class ExamesView extends StatelessWidget {
                               children: List.generate(
                                 controller.listaExamesPorUsuario!.length,
                                 (index) {
-                                  UsuarioExameModel exame =
+                                  UsuarioExameModel usuarioExame =
                                       controller.listaExamesPorUsuario![index];
-                                  return cartaoModel(exame, context);
+                                  return cartaoModel(usuarioExame, context);
                                 },
                               ),
                             );
@@ -172,7 +160,7 @@ class ExamesView extends StatelessWidget {
     );
   }
 
-  Widget cartaoModel(UsuarioExameModel exame, BuildContext context) {
+  Widget cartaoModel(UsuarioExameModel usuarioExame, BuildContext context) {
     return Card(
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -195,7 +183,7 @@ class ExamesView extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${exame.exame!.nome}',
+                    '${usuarioExame.exame!.nome}',
                     style: TextStyle(
                         color: Colors.blue[400],
                         fontSize: larguraTela * 0.035,
@@ -203,7 +191,7 @@ class ExamesView extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    '${myFormateDateNoHour(exame.dataExame)}',
+                    '${myFormateDateNoHour(usuarioExame.dataExame)}',
                     style: TextStyle(
                       color: Colors.green[400],
                       fontSize: 10,
@@ -218,7 +206,7 @@ class ExamesView extends StatelessWidget {
                           child: TextButton.icon(
                             onPressed: () {
                               exameController.setarExameSelecionadaParaEdicao(
-                                  exame, context);
+                                  usuarioExame, context);
                             },
                             icon: FaIcon(
                               FontAwesomeIcons.edit,
